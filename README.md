@@ -5,13 +5,15 @@
   <img src="./images/sereact.jpg" alt="Sereact Company" width="800"> <br>
 
 
-## Code Challenge Implementations
+## Code Challenge Implementation
 
+### Key Components:
 - Data Analysis
 - Data Preprocessing
-- Models
-- Performance Models
-- Suggestion/Idea
+- Model Architectures
+- Performance Evaluation
+- Suggestions
+- Problems
   
 ### Required Packages: 
 ```
@@ -31,7 +33,7 @@ numpy
 Based on my understanding, the point cloud data is organized in a structure similar to an image. Its shape is (3, height, width), where each pixel corresponds to a 3D point with X, Y, and Z coordinates.
 
 
-**Point Cloud Channels Visualization**.
+**Channel Descriptions:**.
 
 - X-axis: Horizontal displacement from the camera center (left: negative, right: positive, center: zero)
 
@@ -39,6 +41,7 @@ Based on my understanding, the point cloud data is organized in a structure simi
 
 - Z-axis: Depth distance from the camera, changing smoothly from top to bottom.<br>
 
+**Visualization Command:**
 ```python
 python visualizer/point_viz.py --file_path dataset/points/00001.npy
 ```
@@ -66,7 +69,7 @@ python visualizer/mask_2dbox_viz.py --image_path ./dataset/images/00026.jpg  --m
 
 ### 2. Data Preparation and Preprocessing
 
-#### Re-structured raw dataset
+#### Dataset Restructuring
 
 Restructuring raw data organizes it into a standardized format, making it easier to process and access.
 
@@ -98,12 +101,12 @@ python prepare_dataset.py --input-path ./raw_data --output-path dataset
 
 #### Preprocessing
 * **Image (<em>ImageMaskTransforms</em>)**
-    - Resizing
-    - Normalization
+    - Resizing to (224, 224)
+    - Normalization (range [-1, 1])
     - To Tensor
-    - Augmentations ->  Brightness
+    - Brightness augmentation
 * **Point Cloud (<em>PointCloudTransforms</em>)**
-    -  Reshape: Converts the points cloud from shape (3, H, W) to (N, 3)for compatibility with the PointNet model or LiDAR-based model
+    -  Reshape: Converts the points cloud from shape (3, H, W) to (N, 3 )for compatibility with the PointNet model or LiDAR-based model
      - Normalization
      - Voxelization
 * **3D Boudning Box (<em>BBox3DTransforms</em>)**
@@ -124,29 +127,41 @@ python prepare_dataset.py --input-path ./raw_data --output-path dataset
 This model is implemented with the following features:
 
 ### Model Pipeline:
- - Total Parameters: **4,830,140** 
- - Input: **Point Cloud** <br> 
+ - **Total Parameters: 4,830,140** 
+ - **Input: Point Cloud** <br> 
     - Transform the organized point cloud into an unorganized format with shape (N, 3) to feed into the PointNet-based model
- - Voxelization<br>
+ - **Voxelization**<br>
   Converting 3D point cloud data into a grid of voxels to represent spatial information. The voxel values were specifically tuned for the Sereact dataset point ranges, which were achieved using this script.
     ```
     python utils/get_point_ranges.py
     ```
-   - Voxel Size: **[0.01, 0.01, 0.01]**
+   - Voxel Size: **[0.01, 0.01, 0.01]** 
    - Point Cloud Range: **[-0.94, -0.93, -0.93, 2.80, 2.8, 2.7]**
    - Max Number Points: **16**
-   - Max Voxels: **(20000, 35000)**
-
- - Pillar Feature Encoding: <br>
+   - Max Voxels: **(20000, 35000)** <br>
+    
+    **Note**: the Voxels parameters adjusted by myself. 
+ - **Pillar Feature Encoding:** <br>
     - Extract high-level features from each voxel/pillar using a PointNet based model<br>
      - Convert pillars features into densce pseude-images
-  - 2D CNN Backbone
+  - **2D CNN Backbone**
      - Process the pseudo-image using 2D CNN layers
-  - SSD Detection Head
+  - **SSD Detection Head**
     - Predict oriented 3D bounding boxes with the output structure  (x,y,z,w,l,h,θ)
     - Utilizes anchor-based regression
- - Output: **3D Bounding Box**
+    - Anchors size: [
+                [0.10, 0.10, 0.08], #  Small <br>
+                [0.15, 0.15, 0.12],  # Medium <br>
+                [0.20, 0.20, 0.16], # Large <br>
+        ]
+    - Anchors ranges: [[-0.94, -0.93, -0.92, 2.80, 2.8, 2.7]]
+    ```
+    python utils/get_bboxes_ranges.py
+    ```
+ - **Output: 3D Bounding Box**
     - Multiple 3D bounding boxes for the point cloud
+
+#### Challenges: The dataset lacks essential configuration parameters needed for voxelization and anchor generation. I manually adjusted these parameters, but they may likely cause errors in prediction and training.
 
 #### Training Configurations:
 ```
@@ -174,23 +189,23 @@ This model is implemented with the following features:
 This model is implemented with the following features:
 
 ### Model Pipeline:
- - Total Parameters: 
+ - **Total Parameters:** 
     - ResNet50 + PointNet: **28,476,833**
     - ViT + PointNet: **103,352,417** 
- - Input: **Point Cloud and RGB Image** <br> 
+ - **Input: Point Cloud and RGB Image** <br> 
     - Points are retained the raw points without voxelization.normalized to the range [-1, +1], and 100,000 points are sampled from each point cloud.
      - RGB images are normalized to the range [-1, +1], resized to [224, 224], and undergo brightness augmentation.
- - Image Feature Extraction
+ - **Image Feature Extraction**
     - CNN-based -> ResNet50
     - Transformer-Based -> Visual Transformer
 
- - Point Cloud Features Extraction (PointNet++)
+ - **Point Cloud Features Extraction (PointNet++)**
      - Processes raw point clouds to extract spatial features.
- - Fusion Network
+ - **Fusion Network**
     - Combining the extracted features from both the RGB image (CNN output) and the point cloud (PointNet++ output)
- - MLP Layer and Regression Head
+ - **MLP Layer and Regression Head**
     - Processes the fused feature vector to predict 3D bounding boxes.
- - Output: **3D Bounding Box**
+ - **Output: 3D Bounding Box**
     - Multiple 3D bounding boxes using the point cloud and rgb image 
 
 <img src="./images/Multimodal.jpg" alt="Multimodal" width="800" height="370"> <br>
@@ -216,15 +231,19 @@ This model is implemented with the following features:
 python3 train_multimodal.py --config configs/multimodal_config.yaml
 ```
 
-## Model Performance Evaluation with Smooth L1 Loss:
+## Performance Evaluation with Smooth L1 Loss:
 
 ### 1. PointNet-based model performances
 
 #### Logged by WandB
+<img src="./images/pointnet_loss.png" alt="Multimodal" width="800" height="370"> <br>
 
 
-#### Logged by terminal
+❗❗❗
 
+***Based on the evaluation, the model is not performing as expected, primarily because the voxelization parameters and the anchor sizes, are not correctly configured. I derived these values from the data distribution using the scripts mentioned above.***
+
+❗❗❗
 
 ### 2. MultiModal model performances
 #### Logged by WandB
@@ -261,3 +280,17 @@ Epoch 80
 ========== Train Loss: 0.3761 
 ========== Eval Loss: 0.1031
 ```
+
+
+## Suggestions
+ - Use Transformer-Based 3D object detection like DETR3D, provided by  facebookresearch [Github](https://github.com/facebookresearch/3detr)
+
+ - Use efficeint and accurate CNN backbone for image feature extraction
+ - Adopt Point Transform for point cloud processing instead of PointNet
+ - Integrate Camera intrinsic parameters for enhance training data prepration
+ - Use attention mechanisms for multi-modal feature fusion
+ - Using segmentation mask for better 3D object localication 
+
+ ## Problems
+  - The provided dataset lacked camera intrinsic parameters.
+  - Initially, I attempted to train 3D object detection model using MMDetection, but I encountered issues with CUDA installation and package inconsistencies. After resolving those, I faced another problem with the data loader carshing. Ultimately, I decided to develop my own pipeline.
