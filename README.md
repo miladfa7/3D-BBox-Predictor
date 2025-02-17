@@ -2,15 +2,16 @@
 
 # Sereact 3D bounding Box Predictor
 
-  
+  <img src="./images/sereact.jpg" alt="Sereact Company" width="800"> <br>
+
 
 ## Code Challenge Implementations
 
 - Data Analysis
 - Data Preprocessing
 - Models
-- Performance Log
-- Suggestion
+- Performance Models
+- Suggestion/Idea
   
 ### Required Packages: 
 ```
@@ -122,7 +123,7 @@ python prepare_dataset.py --input-path ./raw_data --output-path dataset
 
 This model is implemented with the following features:
 
-#### Model Pipeline:
+### Model Pipeline:
  - Total Parameters: **4,830,140** 
  - Input: **Point Cloud** <br> 
     - Transform the organized point cloud into an unorganized format with shape (N, 3) to feed into the PointNet-based model
@@ -172,7 +173,7 @@ This model is implemented with the following features:
 
 This model is implemented with the following features:
 
-#### Model Pipeline:
+### Model Pipeline:
  - Total Parameters: 
     - ResNet50 + PointNet: **28,476,833**
     - ViT + PointNet: **103,352,417** 
