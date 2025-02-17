@@ -1,0 +1,6 @@
+# ninja log v5
+3	17151	1739644433211150529	/mnt/disk2/users/milad/Research/3D-Bboxes/Pipeline_2/models/PointPillars/build/temp.linux-x86_64-3.11/pointpillars/ops/voxelization/voxelization.o	e5092f27f94318c7
+4	20352	1739644433407150535	/mnt/disk2/users/milad/Research/3D-Bboxes/Pipeline_2/models/PointPillars/build/temp.linux-x86_64-3.11/pointpillars/ops/voxelization/voxelization_cpu.o	9e9305049f2be6dc
+4	20403	1739644436571150637	/mnt/disk2/users/milad/Research/3D-Bboxes/Pipeline_2/models/PointPillars/build/temp.linux-x86_64-3.11/pointpillars/ops/voxelization/voxelization_cuda.o	7b5c7de2930ce620
+8	1766	1739644440315150757	/mnt/disk2/users/milad/Research/3D-Bboxes/Pipeline_2/models/PointPillars/build/temp.linux-x86_64-3.11/pointpillars/ops/iou3d/iou3d_kernel.o	eca65f95793284f6
+8	17143	1739644455571151245	/mnt/disk2/users/milad/Research/3D-Bboxes/Pipeline_2/models/PointPillars/build/temp.linux-x86_64-3.11/pointpillars/ops/iou3d/iou3d.o	3368874e3878faeb

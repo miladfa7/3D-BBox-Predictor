@@ -1,0 +1,38 @@
+exp_name: "pillar_exp1"
+device: 'cuda' 
+
+data:
+  train_split: 0.8
+  batch_size: 8
+  num_workers: 4
+  root_path: 'dataset/'
+  image_path: 'images/'
+  point_cloud_path: 'points/'
+  mask_path: 'masks/'
+  bboxes_3d: 'bboxes_3d/'
+  image_target: 224
+  mask_target: 224
+  transforms: 
+    image_transform: false
+    pc_transform: true
+    mask_transform: false
+    bbox_3d_transform: true
+  voxels:
+    voxel_size: [0.01, 0.01, 0.01]
+    point_cloud_range: [-0.94, -0.93, -0.93, 2.80, 2.8, 2.8]
+    max_num_points: 32
+    max_voxels: [30000, 60000]
+  
+
+training: 
+  num_epochs: 2
+  learning_rate: 0.001
+  weight_decay: 0.01
+  save_model_path: 'checkpoints/'
+  loss_func: 'Smooth_L1'
+  optimizer: 'AdamW'
+  scheduler: ''
+  
+testing:
+  model_path: 'best_model.pth'
+  threshold: 0.5
