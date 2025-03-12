@@ -254,7 +254,7 @@ python3 data/detr3d_data.py --data_root dataset/sereact_3detr --num_points 10000
  - **Output:  3D Bounding Box**:
    -  The model predicts 3D bounding boxes corners, means output format is (M, 8, 3)
 
- - **Inference Time**: Running PyTroch model time was 0.10 second or 100 milliseconds 
+ - **Inference Time**: PyTorch model running time was 0.10 second or 100 milliseconds 
 
 #### Training Configurations:
 
@@ -269,7 +269,7 @@ python3 data/detr3d_data.py --data_root dataset/sereact_3detr --num_points 10000
 #### Run the Model Training
 
 ```python
-python3 train_model.py -dataset_name sereact --dataset_root_dir sereact_trainval --max_epoch 1080 --nqueries 256 --base_lr 1e-4 --matcher_giou_cost 3 --matcher_cls_cost 1 --matcher_center_cost 5 --matcher_objectness_cost 5 --loss_giou_weight 0 --loss_no_object_weight 0.1 --save_separate_checkpoint_every_epoch -1 --checkpoint_dir outputs/sereact_ep1080
+python3 train_3detr.py -dataset_name sereact --dataset_root_dir sereact_trainval --max_epoch 1080 --nqueries 256 --base_lr 1e-4 --matcher_giou_cost 3 --matcher_cls_cost 1 --matcher_center_cost 5 --matcher_objectness_cost 5 --loss_giou_weight 0 --loss_no_object_weight 0.1 --save_separate_checkpoint_every_epoch -1 --checkpoint_dir outputs/sereact_ep1080
 ```
 
 ## Performance Evaluation with Smooth L1 Loss:
