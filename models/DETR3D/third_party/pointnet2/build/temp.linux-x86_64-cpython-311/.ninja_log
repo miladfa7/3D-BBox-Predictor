@@ -1,0 +1,10 @@
+# ninja log v5
+6	14363	1741663692616365972	/mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-cpython-311/_ext_src/src/ball_query_gpu.o	a8f45714212ea26b
+7	14476	1741663692712365970	/mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-cpython-311/_ext_src/src/interpolate_gpu.o	816cfa1f6370ee0a
+7	14535	1741663692764365969	/mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-cpython-311/_ext_src/src/sampling_gpu.o	49b2a3e71bd21498
+6	14575	1741663692820365968	/mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-cpython-311/_ext_src/src/group_points_gpu.o	1ed14df91858e2cb
+6	17751	1741663695716365924	/mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-cpython-311/_ext_src/src/group_points.o	2ecef45cc5dfc85c
+6	18086	1741663695908365921	/mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-cpython-311/_ext_src/src/bindings.o	2c7bc72e47032208
+5	18127	1741663696144365918	/mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-cpython-311/_ext_src/src/ball_query.o	606859f676408b0b
+7	18145	1741663696144365918	/mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-cpython-311/_ext_src/src/interpolate.o	cc0448078efe00a9
+7	18920	1741663697012365904	/mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-cpython-311/_ext_src/src/sampling.o	16e79fdba329a595

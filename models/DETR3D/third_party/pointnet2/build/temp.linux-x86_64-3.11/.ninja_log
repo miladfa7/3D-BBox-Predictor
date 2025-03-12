@@ -1,0 +1,10 @@
+# ninja log v5
+6	74210	1741327091309503660	/mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-3.11/_ext_src/src/ball_query_gpu.o	c03eb0df044b382d
+6	75939	1741327091593503655	/mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-3.11/_ext_src/src/group_points_gpu.o	5a91f9add6f6c5b5
+7	76283	1741327091397503658	/mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-3.11/_ext_src/src/interpolate_gpu.o	1c3d7c021f96d2c9
+7	76524	1741327091701503654	/mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-3.11/_ext_src/src/sampling_gpu.o	3ce9b2b986d3905e
+6	77123	1741327094077503618	/mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-3.11/_ext_src/src/bindings.o	5e26e81e0863e01
+7	77462	1741327094469503612	/mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-3.11/_ext_src/src/sampling.o	5b81ab87cbf3dd
+5	78074	1741327094945503604	/mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-3.11/_ext_src/src/ball_query.o	330c2a952e9207d6
+6	78242	1741327095117503602	/mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-3.11/_ext_src/src/group_points.o	4aa408431da64831
+6	78477	1741327095209503600	/mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-3.11/_ext_src/src/interpolate.o	e0967c21ae85a002

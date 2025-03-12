@@ -14,7 +14,8 @@ class Sereact3DBoxTest:
         self.pointpillars = PointPillars(nclasses=1, voxel_size=[0.01, 0.01, 0.01],
                                          point_cloud_range=[-0.94, -0.93, -0.93, 2.80, 2.8, 2.8],
                                          max_num_points=32,
-                                         max_voxels=(20000, 40000)).to(self.device)
+                                         max_voxels=(30000, 50000)).to(self.device)
+
         self.pointpillars.load_state_dict(torch.load(model_path))
 
     def params_to_corners(self, params: np.ndarray) -> np.ndarray:
@@ -53,7 +54,7 @@ class Sereact3DBoxTest:
 
 if __name__=="__main__":
     parser = argparse.ArgumentParser(description='Test Sereact3DBox')
-    parser.add_argument('--model_path', type=str, default='/mnt/disk2/users/milad/Research/3D-Bboxes/Pipeline_2/checkpoints/pointspillars_15.pth',
+    parser.add_argument('--model_path', type=str, default='checkpoints/pointspillars_16.pth',
                         help='Path to the trained model')
     parser.add_argument('--pts_path', type=str, default='/mnt/disk2/users/milad/Research/3D-Bboxes/Pipeline_2/dataset/points/00001.npy',
                         help='Path to the point cloud file')

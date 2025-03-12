@@ -1,0 +1,40 @@
+ninja_required_version = 1.3
+cxx = c++
+nvcc = /usr/local/cuda/bin/nvcc
+
+cflags = -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer -fstack-protector-strong -fstack-clash-protection -Wformat -Werror=format-security -fcf-protection -g -fwrapv -O2 -g -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer -fstack-protector-strong -fstack-clash-protection -Wformat -Werror=format-security -fcf-protection -Wdate-time -D_FORTIFY_SOURCE=3 -fPIC -I/mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/_ext_src/include -I/mnt/disk2/users/milad/Research/3D-Bboxes/env_3d/lib/python3.11/site-packages/torch/include -I/mnt/disk2/users/milad/Research/3D-Bboxes/env_3d/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -I/mnt/disk2/users/milad/Research/3D-Bboxes/env_3d/lib/python3.11/site-packages/torch/include/TH -I/mnt/disk2/users/milad/Research/3D-Bboxes/env_3d/lib/python3.11/site-packages/torch/include/THC -I/usr/local/cuda/include -I/mnt/disk2/users/milad/Research/3D-Bboxes/env_3d/include -I/usr/include/python3.11 -c
+post_cflags = -O2 -I_ext_src/include -DTORCH_API_INCLUDE_EXTENSION_H '-DPYBIND11_COMPILER_TYPE="_gcc"' '-DPYBIND11_STDLIB="_libstdcpp"' '-DPYBIND11_BUILD_ABI="_cxxabi1011"' -DTORCH_EXTENSION_NAME=_ext -D_GLIBCXX_USE_CXX11_ABI=0 -std=c++17
+cuda_cflags = -I/mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/_ext_src/include -I/mnt/disk2/users/milad/Research/3D-Bboxes/env_3d/lib/python3.11/site-packages/torch/include -I/mnt/disk2/users/milad/Research/3D-Bboxes/env_3d/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -I/mnt/disk2/users/milad/Research/3D-Bboxes/env_3d/lib/python3.11/site-packages/torch/include/TH -I/mnt/disk2/users/milad/Research/3D-Bboxes/env_3d/lib/python3.11/site-packages/torch/include/THC -I/usr/local/cuda/include -I/mnt/disk2/users/milad/Research/3D-Bboxes/env_3d/include -I/usr/include/python3.11 -c
+cuda_post_cflags = -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"'' -O2 -I_ext_src/include -DTORCH_API_INCLUDE_EXTENSION_H '-DPYBIND11_COMPILER_TYPE="_gcc"' '-DPYBIND11_STDLIB="_libstdcpp"' '-DPYBIND11_BUILD_ABI="_cxxabi1011"' -DTORCH_EXTENSION_NAME=_ext -D_GLIBCXX_USE_CXX11_ABI=0 -gencode=arch=compute_89,code=compute_89 -gencode=arch=compute_89,code=sm_89 -std=c++17
+cuda_dlink_post_cflags = 
+ldflags = 
+
+rule compile
+  command = $cxx -MMD -MF $out.d $cflags -c $in -o $out $post_cflags
+  depfile = $out.d
+  deps = gcc
+
+rule cuda_compile
+  depfile = $out.d
+  deps = gcc
+  command = $nvcc --generate-dependencies-with-compile --dependency-output $out.d $cuda_cflags -c $in -o $out $cuda_post_cflags
+
+
+
+
+
+build /mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-3.11/_ext_src/src/ball_query.o: compile /mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/_ext_src/src/ball_query.cpp
+build /mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-3.11/_ext_src/src/ball_query_gpu.o: cuda_compile /mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/_ext_src/src/ball_query_gpu.cu
+build /mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-3.11/_ext_src/src/bindings.o: compile /mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/_ext_src/src/bindings.cpp
+build /mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-3.11/_ext_src/src/group_points.o: compile /mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/_ext_src/src/group_points.cpp
+build /mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-3.11/_ext_src/src/group_points_gpu.o: cuda_compile /mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/_ext_src/src/group_points_gpu.cu
+build /mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-3.11/_ext_src/src/interpolate.o: compile /mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/_ext_src/src/interpolate.cpp
+build /mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-3.11/_ext_src/src/interpolate_gpu.o: cuda_compile /mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/_ext_src/src/interpolate_gpu.cu
+build /mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-3.11/_ext_src/src/sampling.o: compile /mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/_ext_src/src/sampling.cpp
+build /mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/build/temp.linux-x86_64-3.11/_ext_src/src/sampling_gpu.o: cuda_compile /mnt/disk2/users/milad/Research/3D-Bboxes/3detr/third_party/pointnet2/_ext_src/src/sampling_gpu.cu
+
+
+
+
+
+

@@ -278,11 +278,11 @@ class PointPillars(nn.Module):
         #     [1.2, 0.5, 1.0]   # Larger anchor for bigger objects
         # ]
         sizes = [
-             [0.2, 0.4, 0.3],
-             [0.15, 0.3, 0.25],
-             [0.25, 0.5, 0.4],
+             [0.096, 0.096, 0.10],
+             [0.153, 0.154, 0.15],
+             [0.21, 0.213, 0.21],
         ]
-        rotations=[0, 0.1]
+        rotations=[0, 0.0]
         # rotations=[0, 1.57]
         self.anchors_generator = Anchors(ranges=ranges, 
                                          sizes=sizes, 
@@ -290,9 +290,9 @@ class PointPillars(nn.Module):
         
         # train
         self.assigners = [
-            {'pos_iou_thr': 0.25, 'neg_iou_thr': 0.25, 'min_iou_thr': 0.25},
-            {'pos_iou_thr': 0.25, 'neg_iou_thr': 0.25, 'min_iou_thr': 0.25},
-            {'pos_iou_thr': 0.25, 'neg_iou_thr': 0.25, 'min_iou_thr': 0.25},
+            {'pos_iou_thr': 0.35, 'neg_iou_thr': 0.35, 'min_iou_thr': 0.2},
+            # {'pos_iou_thr': 0.25, 'neg_iou_thr': 0.25, 'min_iou_thr': 0.25},
+            # {'pos_iou_thr': 0.25, 'neg_iou_thr': 0.25, 'min_iou_thr': 0.25},
         ]
 
         # val and test
